@@ -9,7 +9,9 @@ This article presents a variant of the KZG commitment, the bivariate KZG commitm
 ## Pairing
 Both univariate and bivariate KZG commitment schemes work over pairing friendly curves. See [here](https://en.wikipedia.org/wiki/Pairing-based_cryptography) for its definitions, and [bn254](https://hackmd.io/@jpw/bn254) and [bls12-381](https://hackmd.io/@benjaminion/bls12-381) are two popular instantiations of such curves. Recall that such set of curves consist of three cyclic groups, namely $\mathbb{G}_1$, $\mathbb{G}_2$ and $\mathbb{G}_t$, of a same group order $p$, equipped with a bilinear pairing mapping:
 
-$$\forall x \in\mathbb{F}_{p}, y \in\mathbb{F}_{p}, g_1\in \mathbb{G}_1, g_2\in \mathbb{G}_2,\quad\quad e(g_1^x, g_2^y) = e(g_1, g_2)^{xy} \in \mathbb{G}_t$$
+$$
+\forall x \in\mathbb{F}_{p}, y \in\mathbb{F}_{p}, g_1\in \mathbb{G}_1, g_2\in \mathbb{G}_2,\quad\quad e(g_1^x, g_2^y) = e(g_1, g_2)^{xy} \in \mathbb{G}_t
+$$
 
 ## Trust Setup
 
@@ -22,6 +24,7 @@ $$
 (g_1^{\tau_0^i\tau_1^j})_{i\in [0,N], j\in [0, M]} = \\
 (g_1, g_1^{\tau_0}, g_1^{\tau_0^2}, ..., g_1^{\tau_0^N}, g_1^{\tau_1}, g_1^{\tau_0\tau_1}, g_1^{\tau_0^2\tau_1}, ..., g_1^{\tau_0^N\tau_1}, ..., g_1^{\tau_0^N\tau_1^M})
 $$
+
 Here, $\tau_0$ and $\tau_1$ serve as the trapdoors. Furthermore, as we need to commit to a bivariate polynomial, we also establish two public parameters in $\mathbb{G}_2$ to act as verification keys:
 
 $$
@@ -76,6 +79,7 @@ $$
 ((\omega_0^0, \omega_1^{M-1}), a_{0,M-1}),& ((\omega_0^1, \omega_1^{M-1}), a_{1,M-1}),& ((\omega_0^2, \omega_1^{M-1}), a_{2,M-1}),&  ...,& ((\omega_0^{N-1}, \omega_1^{M-1}), a_{N-1,M-1})
 \end{matrix}
 $$
+
 <!-- 
 $$
 \displaylines{
@@ -85,6 +89,7 @@ $$
 ((\omega_0^0, \omega_1^{M-1}), a_{0,M-1}), ((\omega_0^1, \omega_1^{M-1}), a_{1,M-1}), ((\omega_0^2, \omega_1^{M-1}), a_{2,M-1}),  ..., ((\omega_0^{N-1}, \omega_1^{M-1}), a_{N-1,M-1})
 }
 $$ -->
+
 Here, $\omega_0$ is the $N$-th root of unity, and $\omega_1$ is the $M$-th root of unity. We assume that both $N$ and $M$ are powers of 2. Given the list of points, we can derive the bivariate Lagrange polynomial:
 
 $$
@@ -96,8 +101,7 @@ $$
 As we are now dealing with a Lagrange polynomial $f(x,y)$ (with two variables: $x$ and $y$), a different setup is required. Typically, we need to establish the following parameters:
 
 $$
-\left(g_1^{L_i^N(\tau_0)L_j^M(\tau_1)}\right)_{i\in [0,N], j\in [0, M]} := 
-\begin{pmatrix}
+\left(g_1^{L_i^N(\tau_0)L_j^M(\tau_1)}\right)_{i\in [0,N], j\in [0, M]} := \begin{pmatrix}
 g_1,& g_1^{L_1^N(\tau_0)},& g_1^{L_2^N(\tau_0^2)},& ...,& g_1^{L_{N-1}^N(\tau_0^{N-1})},\\
 g_1^{L_1^M(\tau_1)},& g_1^{L_1^N(\tau_0)L_1^M(\tau_1)},& g_1^{L_2^N(\tau_0^2)L_1^M(\tau_1)},& ...,& g_1^{L_{N-1}^N(\tau_1^{N-1})L_1^M(\tau_1)},\\
 \vdots & \vdots & \vdots & \ddots & \vdots\\
@@ -139,6 +143,8 @@ Q_0(x, b) = \frac{f(x,b) - u}{x-a}\\
 Q_1(a,y) = \frac{f(a,y) - u'}{y-b}
 }
 $$
+
+
 In this context, $u = f(a,b)$ and $u' = f(\tau_0, b)$. Given the evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$), we can calculate $f(x,b)$ and $f(a,y)$. Additionally, we can compute $Q_0(x,b)$ and $Q_1(a,y)$ using their evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$).
 
 Subsequently, the prover can calculate the proof in the following manner:
@@ -170,10 +176,13 @@ $$
 e(\pi_0\cdot \pi_1, g_2^{\tau_0-a}\cdot g_2^{\tau_1-b}) = e(g_1^{u'-u}\cdot g_1^{c-u'}, g_2)\\
 }
 $$
+
 which is 
+
 $$
 e(\pi_0\cdot \pi_1, \frac{g_2^{\tau_0}\cdot g_2^{\tau_1}}{g_2^a\cdot g_2^b}) = e(\frac{g_1^c}{g_1^u}, g_2)
 $$
+
 That is, the verifier locally computes $g_2^a$, $g_2^b$, and $g_1^u$, then verifies the pairing equation with the commitment and the proof.
 
 
