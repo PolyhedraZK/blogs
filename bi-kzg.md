@@ -187,26 +187,22 @@ That is, the verifier locally computes $g_2^a$, $g_2^b$, and $g_1^u$, then verif
 
 
 # Distributed Computing
-The primary advantage of bivariate KZG commitment over univariate is its facilitation of distributed computation. In Proto-Danksharding, we've already observed its utility in data availability sampling. We intend to utilize it for distributed zero-knowledge proof generation in our context. A common example involves using the Message Passing Interface (MPI) to distribute multiple tasks across various machines. Below, we delineate the necessary modifications to each algorithm within the distributed architecture. For the sake of simplicity, let's assume there are $n \leq N$ identical machines involved.
+The primary advantage of bivariate KZG commitment over univariate is its facilitation of distributed computation. In Proto-Danksharding, we've already observed its utility in data availability sampling. We intend to utilize it for distributed zero-knowledge proof generation in our context. A common example involves using the Message Passing Interface (MPI) to distribute multiple tasks across various machines. Below, we delineate the necessary modifications to each algorithm within the distributed architecture. For the sake of simplicity, let's assume there are $n \leq N$ identical machines involved. Let's further assume $n|N$ and $d = N/n$.
 
 ## MPI Setup
 
-Given that we've divided the original task into several sub-tasks, each machine needs to store only a subset of the setup parameters. Assuming we have $n$ machines, machine $i$ only requires the following parameters:
+Given that we've divided the original task into several sub-tasks, each machine needs to store only a subset of the setup parameters. Assuming we have $n$ machines, machine $k$ only requires the following parameters:
 
 $$
-\left(g_1^{L_i^N(\tau_0)L_j^M(\tau_1)}\right)_{i\in [start_i,end_i), j\in [0, M]}
+\left(g_1^{L_i^N(\tau_0)L_j^M(\tau_1)}\right)_{i\in [dk,d(k+1)), j\in [0, M]}
 $$
-
-Here, $start_i = i * chunk$ and $end_i = min((i + 1) * chunk, N)$, and $chunk = \lfloor \frac{alpha + n - 1}{n} \rfloor$
 
 ## MPI Commitment
-Within our architecture, each machine calculates a partial commitment. Subsequently, the root machine gathers these and computes the final commitment. Specifically, the $i$-th machine performs the following computation:
+Within our architecture, each machine calculates a partial commitment. Subsequently, the root machine gathers these and computes the final commitment. Specifically, the $k$-th machine performs the following computation:
 
 $$
-\displaylines{
-c_i = g_1^{\sum\limits_{i=start_i}^{end_i-1}\sum\limits_{j=0}^{M-1}a_{i,j}L_i^N(\tau_0)L_j^M(\tau_1)} \\
-    = \prod_{i=start_i}^{end_i-1}\prod_{j=0}^{M-1}\left(g_1^{L_i^N(\tau_0)L_j^M(\tau_1)}\right)^{a_{i,j}}
-}
+c_k = g_1^{\sum\limits_{i=dk}^{d(k+1) - 1}\sum\limits_{j=0}^{M-1}a_{i,j}L_i^N(\tau_0)L_j^M(\tau_1)} 
+= \prod_{i=dk}^{d(k+1) - 1}\prod_{j=0}^{M-1}\left(g_1^{L_i^N(\tau_0)L_j^M(\tau_1)}\right)^{a_{i,j}}
 $$
 
 Upon gathering all partial commitments, the root machine calculates the final commitment as $c = \sum\limits_{i=0}^{n-1}c_i$ and transmits it to the verifier.
