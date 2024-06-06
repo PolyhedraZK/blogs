@@ -187,7 +187,7 @@ e(\pi_0, g_2^{\tau_0})\cdot e(\pi_1, g_2^{\tau_1}) = e(\pi_0^a \cdot \pi_1^b \cd
 }
 $$
 
-This plausibly replaces two exponents in $G2$ with two exponents in $G1$, which may improve the gas cost if the verifier is deployed as a smart contract on the blockchain.
+This plausibly replaces two exponents in $\mathbb{G}_2$ with two exponents in $\mathbb{G}_1$, which may improve the gas cost if the verifier is deployed as a smart contract on the blockchain.
 
 # Distributed Computing
 The primary advantage of bivariate KZG commitment over univariate is its facilitation of distributed computation. In Proto-Danksharding, we've already observed its utility in data availability sampling. We intend to utilize it for distributed zero-knowledge proof generation in our context. A common example involves using the Message Passing Interface (MPI) to distribute multiple tasks across various machines. Below, we delineate the necessary modifications to each algorithm within the distributed architecture. For the sake of simplicity, let's assume there are $n \leq N$ identical machines involved. Let's further assume $n|N$ and $d = N/n$.
