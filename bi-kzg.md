@@ -173,18 +173,21 @@ Let us slightly adjust them, so we can compute:
 
 $$
 \displaylines{
-e(\pi_0\cdot \pi_1, g_2^{\tau_0-a}\cdot g_2^{\tau_1-b}) = e(g_1^{u'-u}\cdot g_1^{c-u'}, g_2)\\
+e(\pi_0, g_2^{\tau_0-a}）\cdot e(\pi_1, g_2^{\tau_1-b}) = e(g_1^{u'-u}\cdot g_1^{c-u'}, g_2)\\
 }
 $$
 
-which is 
+To this point, the verifier can locally compute $g_2^a$, $g_2^b$, and $g_1^u$ to verify the above equation. 
+
+Sometimes, it's beneficial to avoid expensive computation in $G2$. We can tweak the above equation a little bit as follows:
 
 $$
-e(\pi_0\cdot \pi_1, \frac{g_2^{\tau_0}\cdot g_2^{\tau_1}}{g_2^a\cdot g_2^b}) = e(\frac{g_1^c}{g_1^u}, g_2)
+\displaylines{
+e(\pi_0, g_2^{\tau_0})\cdot e(\pi_1, g_2^{\tau_1}) = e(\pi_0^a \cdot \pi_1^b \cdot g_1^{c-u}, g_2)
+}
 $$
 
-That is, the verifier locally computes $g_2^a$, $g_2^b$, and $g_1^u$, then verifies the pairing equation with the commitment and the proof.
-
+This plausibly replaces two exponents in $G2$ with two exponents in $G1$, which may improve the gas cost if the verifier is deployed as a smart contract on the blockchain.
 
 # Distributed Computing
 The primary advantage of bivariate KZG commitment over univariate is its facilitation of distributed computation. In Proto-Danksharding, we've already observed its utility in data availability sampling. We intend to utilize it for distributed zero-knowledge proof generation in our context. A common example involves using the Message Passing Interface (MPI) to distribute multiple tasks across various machines. Below, we delineate the necessary modifications to each algorithm within the distributed architecture. For the sake of simplicity, let's assume there are $n \leq N$ identical machines involved. Let's further assume $n|N$ and $d = N/n$.
