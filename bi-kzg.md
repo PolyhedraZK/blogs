@@ -10,7 +10,7 @@ This article presents a variant of the KZG commitment, the bivariate KZG commitm
 Both univariate and bivariate KZG commitment schemes work over pairing friendly curves. See [here](https://en.wikipedia.org/wiki/Pairing-based_cryptography) for its definitions, and [bn254](https://hackmd.io/@jpw/bn254) and [bls12-381](https://hackmd.io/@benjaminion/bls12-381) are two popular instantiations of such curves. Recall that such set of curves consist of three cyclic groups, namely $\mathbb{G}_1$, $\mathbb{G}_2$ and $\mathbb{G}_t$, of a same group order $p$, equipped with a bilinear pairing mapping:
 
 $$
-\forall x \in\mathbb{F}_{p}, y \in\mathbb{F}_{p}, g_1\in \mathbb{G}_1, g_2\in \mathbb{G}_2,\quad\quad e(g_1^x, g_2^y) = e(g_1, g_2)^{xy} \in \mathbb{G}_t
+\forall x \in \mathbb{F}_{p}, y \in \mathbb{F} _{p}, g_1 \in \mathbb{G}_1, g_2\in \mathbb{G}_2,\quad\quad e(g_1^x, g_2^y) = e(g_1, g_2)^{xy} \in \mathbb{G}_t
 $$
 
 ## Trust Setup
@@ -102,10 +102,10 @@ As we are now dealing with a Lagrange polynomial $f(x,y)$ (with two variables: $
 
 $$
 \left(g_1^{L_i^N(\tau_0)L_j^M(\tau_1)}\right)_{i\in [0,N], j\in [0, M]} := \begin{pmatrix}
-g_1,& g_1^{L_1^N(\tau_0)},& g_1^{L_2^N(\tau_0^2)},& ...,& g_1^{L_{N-1}^N(\tau_0^{N-1})},\\
-g_1^{L_1^M(\tau_1)},& g_1^{L_1^N(\tau_0)L_1^M(\tau_1)},& g_1^{L_2^N(\tau_0^2)L_1^M(\tau_1)},& ...,& g_1^{L_{N-1}^N(\tau_1^{N-1})L_1^M(\tau_1)},\\
+g _1,& g _1^{L _1^N(\tau _0)},& g _1^{L _2^N(\tau _0^2)},& ...,& g_1^{L _{N-1}^N(\tau _0^{N-1})},\\
+g _1^{L _1^M(\tau _1)},& g_1^{L _1^N(\tau_0)L_1^M(\tau_1)},& g_1^{L_2^N(\tau_0^2)L_1^M(\tau_1)},& ...,& g_1^{L _{N-1}^N(\tau_1^{N-1})L_1^M(\tau_1)},\\
 \vdots & \vdots & \vdots & \ddots & \vdots\\
-g_1^{L_{M-1}^M(\tau_1)},& g_1^{L_1^N(\tau_0)L_{M-1}^M(\tau_1)},& g_1^{L_2^N(\tau_0^2)L_{M-1}^M(\tau_1)},& ...,& g_1^{L_{N-1}^N(\tau_1^{N-1})L_{M-1}^M(\tau_1^{M-1})}
+g_1^{L _{M-1}^M(\tau_1)},& g_1^{L_1^N(\tau_0)L _{M-1}^M(\tau_1)},& g_1^{L_2^N(\tau_0^2)L _{M-1}^M(\tau_1)},& ...,& g_1^{L _{N-1}^N(\tau_1^{N-1})L _{M-1}^M(\tau_1^{M-1})}
 \end{pmatrix}
 $$
 
