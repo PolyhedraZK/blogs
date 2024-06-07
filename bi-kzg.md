@@ -5,6 +5,22 @@ The KZG commitment scheme, introduced in 2010 by Kate, Zaverucha, and Goldberg, 
 
 This article presents a variant of the KZG commitment, the bivariate KZG commitment, which allows us to commit to polynomials with two variables. Subsequently, we demonstrate that this commitment scheme is particularly well-suited for distributed computation.
 
+# Motivation
+The primary motivation behind Bi-Variate KZG (Bi-KZG) is to enhance distributed computing. There are two major Zero-Knowledge (ZK) directions that utilize Bi-KZG for this purpose:
+
+- **Plonk-based**: Refer to [Pianist](https://eprint.iacr.org/2023/1271).
+- **GKR-based**: We developed DExpander, which is based on GKR and Bi-KZG. The GKR is a modified version from the original paper [Libra](https://eprint.iacr.org/2019/317).
+
+Our focus is on the GKR-based approach. In the original Libra paper, the GKR + KZG solution requires $ O(\log{n}) $ pairings, where $ n $ is the input layer size. This requirement stems from the fact that GKR is based on Multi-Linear Extension (MLE), where a polynomial has $ O(\log{n}) $ variables. In Libra, we used a $ O(\log{n}) $ variate KZG commitment to commit the MLE, which incurs $ O(\log{n}) $ pairings for the verifier. Since pairings are extremely expensive for on-chain pre-compilation, minimizing on-chain costs is crucial.
+
+In our solution, we modified the MLE in the input layer to a Bi-Variate Extension. The Bi-Variate Extension of an array $ V = [v_0, v_1, \ldots, v_{n-1}] $ is denoted by the polynomial $ \tilde{V}(x, y) $, and the evaluation of the polynomial is defined as follows:
+
+$$ \tilde{V}(x, y) := v_{x \cdot \frac{n}{M} + y}, \quad 0 \le x \le M, \quad 0 \le y \le \frac{n}{M} $$
+
+where $ M $ is the number of machines.
+
+Each machine only stores its own range of values from the array $ V $. We will provide detailed algorithmic insights in a dedicated blog post about distributed GKR next week.
+
 # The commitment scheme
 ## Pairing
 Both univariate and bivariate KZG commitment schemes work over pairing friendly curves. See [here](https://en.wikipedia.org/wiki/Pairing-based_cryptography) for its definitions, and [bn254](https://hackmd.io/@jpw/bn254) and [bls12-381](https://hackmd.io/@benjaminion/bls12-381) are two popular instantiations of such curves. Recall that such set of curves consist of three cyclic groups, namely $\mathbb{G}_1$, $\mathbb{G}_2$ and $\mathbb{G}_t$, of a same group order $p$, equipped with a bilinear pairing mapping:
