@@ -6,20 +6,27 @@ The KZG commitment scheme, introduced in 2010 by Kate, Zaverucha, and Goldberg, 
 This article presents a variant of the KZG commitment, the bivariate KZG commitment, which allows us to commit to polynomials with two variables. Subsequently, we demonstrate that this commitment scheme is particularly well-suited for distributed computation.
 
 # Motivation
-The primary motivation behind Bi-Variate KZG (Bi-KZG) is to enhance distributed computing. There are two major Zero-Knowledge (ZK) directions that utilize Bi-KZG for this purpose:
 
-- **Plonk-based**: Refer to [Pianist](https://eprint.iacr.org/2023/1271).
-- **GKR-based**: We developed DExpander, which is based on GKR and Bi-KZG. The GKR is a modified version from the original paper [Libra](https://eprint.iacr.org/2019/317).
 
-Our focus is on the GKR-based approach. In the original Libra paper, the GKR + KZG solution requires $O(\log{n})$ pairings, where $n$ is the input layer size. This requirement stems from the fact that GKR is based on Multi-Linear Extension (MLE), where a polynomial has $O(\log{n})$ variables. In Libra, we used a $O(\log{n})$ variate KZG commitment to commit the MLE, which incurs $O(\log{n})$ pairings for the verifier. Since pairings are extremely expensive for on-chain pre-compilation, minimizing on-chain costs is crucial.
+The primary goal of bivariate KZG (Bi-KZG) is to elevate the capabilities of distributed computing. Within this domain, Bi-KZG finds application in two principal Zero-Knowledge (ZK) approaches:
 
-In our solution, we modified the MLE in the input layer to a Bi-Variate Extension. The Bi-Variate Extension of an array $V = \[v _0, v _1, \ldots, v _{n-1}\]$ is denoted by the polynomial $ \tilde{V}(x, y) $, and the evaluation of the polynomial is defined as follows:
+- **Plonk-based**: See [Pianist](https://eprint.iacr.org/2023/1271) for further reference.
+- **GKR-based**: We developed DExpander, which is based on GKR and Bi-KZG. The GKR employed here is a modified version derived from the original [Libra](https://eprint.iacr.org/2019/317) paper.
+
+Our focus is on the GKR-based approach. In the original Libra paper, the GKR + KZG solution requires $O(\log{n})$ pairings for the verifier, where $n$ is the input layer size. This requirement stems from the fact that GKR is based on Multi-Linear Extension (MLE), where a polynomial has $O(\log{n})$ variables. In Libra, we used a $O(\log{n})$ variate KZG commitment to commit the MLE, which incurs $O(\log{n})$ pairings for the verifier. Since pairings are extremely expensive for on-chain pre-compilation, minimizing on-chain costs is crucial.
+
+In our solution, we modified the MLE in the input layer to a Bivariate Extension. The Bivariate Extension of an array $V = \[v _0, v _1, \ldots, v _{n-1}\]$ is denoted by the polynomial $ \tilde{V} (x, y) $, and the evaluation of the polynomial is defined as follows:
 
 $$ \tilde{V}(x, y) := v_{x \cdot \frac{n}{M} + y}, \quad 0 \le x \le M, \quad 0 \le y \le \frac{n}{M} $$
 
-where $M$ is the number of machines.
+where $M$ is the number of machines in the distributed scenario.
 
-Each machine only stores its own range of values from the array $V$. We will provide detailed algorithmic insights in a dedicated blog post about distributed GKR next week.
+Each machine exclusively stores its designated range of values from the array $V$. A detailed exposition of the algorithmic intricacies will be presented in an upcoming blog post dedicated to distributed GKR, scheduled for release next week.
+
+
+
+
+
 
 # The commitment scheme
 ## Pairing
