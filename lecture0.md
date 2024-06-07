@@ -40,45 +40,45 @@ Abstract algebra forms the theoretical backbone of many modern cryptography algo
 
 A finite field, also known as a Galois field, is a mathematical system composed of a finite number of elements where you can perform addition, subtraction, multiplication, and division (except by zero) operations that satisfy the field axioms. Finite fields are crucial in cryptography, error-correcting codes, and various algorithms because they provide a well-defined, closed set of elements with predictable properties.
 
-A simple example of a finite field is the set of integers modulo a prime number $p$, denoted as $ \mathbb{F} _p $. In this field, the elements are the integers $ \{0, 1, \ldots, p-1\} $, and all arithmetic operations are performed modulo $p$.
+A simple example of a finite field is the set of integers modulo a prime number $p$, denoted as $\mathbb{F} _p$. In this field, the elements are the integers $\{0, 1, \ldots, p-1\}$, and all arithmetic operations are performed modulo $p$.
 
 ### Formal Definition
 
-A finite field $ \mathbb{F} $ is a set containing a finite number of elements, equipped with two binary operations—addition (+) and multiplication (·)—that adhere to the following axioms:
+A finite field $\mathbb{F}$is a set containing a finite number of elements, equipped with two binary operations—addition (+) and multiplication (·)—that adhere to the following axioms:
 
-1. **Closure**: For every $ a, b \in \mathbb{F} $, both $ a + b $ and $ a \cdot b $ are in $ \mathbb{F} $.
-2. **Associativity**: For all $ a, b, c \in \mathbb{F} $, the equations $ (a + b) + c = a + (b + c) $ and $ (a \cdot b) \cdot c = a \cdot (b \cdot c) $ hold.
-3. **Commutativity**: For all $ a, b \in \mathbb{F} $, $ a + b = b + a $ and $ a \cdot b = b \cdot a $.
-4. **Identity Elements**: There exist two distinct elements, 0 and 1 in $ \mathbb{F} $, such that for every $ a \in \mathbb{F} $, $ a + 0 = a $ and $ a \cdot 1 = a $.
-5. **Additive Inverses**: For every $ a \in \mathbb{F} $, there exists an element $ -a \in \mathbb{F} $ such that $ a + (-a) = 0 $.
-6. **Multiplicative Inverses**: For every $ a \in \mathbb{F} $ with $ a \neq 0 $, there exists an element $ a^{-1} \in \mathbb{F} $ such that $ a \cdot a^{-1} = 1 $.
-7. **Distributivity**: For all $ a, b, c \in \mathbb{F} $, $ a \cdot (b + c) = (a \cdot b) + (a \cdot c) $.
+1. **Closure**: For every $a, b \in \mathbb{F}$, both $a + b$ and $a \cdot b$ are in $\mathbb{F}$.
+2. **Associativity**: For all $a, b, c \in \mathbb{F}$, the equations $(a + b) + c = a + (b + c)$ and $(a \cdot b) \cdot c = a \cdot (b \cdot c)$hold.
+3. **Commutativity**: For all $a, b \in \mathbb{F}$, $a + b = b + a$ and $a \cdot b = b \cdot a$.
+4. **Identity Elements**: There exist two distinct elements, 0 and 1 in $\mathbb{F}$, such that for every $a \in \mathbb{F}$ ,$a + 0 = a$ and $a \cdot 1 = a$.
+5. **Additive Inverses**: For every $a \in \mathbb{F}$, there exists an element $-a \in \mathbb{F}$ such that $a + (-a) = 0$.
+6. **Multiplicative Inverses**: For every $a \in \mathbb{F}$ with $a \neq 0$, there exists an element $a^{-1} \in \mathbb{F}$ such that $a \cdot a^{-1} = 1$.
+7. **Distributivity**: For all $a, b, c \in \mathbb{F}$, $a \cdot (b + c) = (a \cdot b) + (a \cdot c)$.
 
 ## Polynomials
 
-Polynomials are mathematical expressions involving a sum of powers in one or more variables multiplied by coefficients. For example, $ f(x) = a _n x^n + a _{n-1} x^{n-1} + \cdots + a _1 x + a _0 $ is a polynomial in one variable ($x$), and $ g(x, y) = b _{mn} x^m y^n + \cdots + b _{01} y + b _{00} $ is a polynomial in two variables ($x$ and $y$). Polynomials play a central role in numerous areas of mathematics and science, from solving equations and modeling physical phenomena to forming the basis of polynomial-based cryptographic schemes.
+Polynomials are mathematical expressions involving a sum of powers in one or more variables multiplied by coefficients. For example,$f(x) = a _n x^n + a _{n-1} x^{n-1} + \cdots + a _1 x + a _0$ is a polynomial in one variable ($x$), and $g(x, y) = b _{mn} x^m y^n + \cdots + b _{01} y + b _{00}$ is a polynomial in two variables ($x$ and $y$). Polynomials play a central role in numerous areas of mathematics and science, from solving equations and modeling physical phenomena to forming the basis of polynomial-based cryptographic schemes.
 
 In the context of zero-knowledge proofs and other cryptographic applications, polynomials can be used in various ways, including constructing polynomial equations that have specific properties or solutions, or as part of more complex structures like polynomial commitment schemes, where they enable efficient verification of properties without revealing the polynomial itself.
 
 A multivariate polynomial is a polynomial that involves more than one variable. Formally, it can be expressed as
 
-\[ f(x _1, x _2, \ldots, x _n) = \sum a _{i _1 i _2 \ldots i _n} x _1^{i _1} x _2^{i _2} \cdots x _n^{i _n} \]
+$$f(x _1, x _2, \ldots, x _n) = \sum a _{i _1 i _2 \ldots i _n} x _1^{i _1} x _2^{i _2} \cdots x _n^{i _n}$$
 
-where $ n $ represents the number of variables, $ a _{i _1 i _2 \ldots i _n} $ are the coefficients, which can be real or complex numbers, and $ i _1, i _2, \ldots, i _n $ are non-negative integers representing the powers of each variable. The total degree of a multivariate polynomial is the highest total degree of its monomials, where the total degree of a monomial is the sum of the powers of all its variables.
+where $n$ represents the number of variables, $a _{i _1 i _2 \ldots i _n}$ are the coefficients, which can be real or complex numbers, and $i _1, i _2, \ldots, i _n$ are non-negative integers representing the powers of each variable. The total degree of a multivariate polynomial is the highest total degree of its monomials, where the total degree of a monomial is the sum of the powers of all its variables.
 
-A multilinear polynomial in $ n $ variables is a special type of multivariate polynomial where each variable in any term appears at most with the power of one (i.e., powers are either 0 or 1). For such polynomials, each variable combination can either be present or absent in a term, leading to each term being uniquely defined by a subset of the variables. For example, with two variables $ x $ and $ y $, the possible terms are 1, $ x $, $ y $, and $ xy $. Therefore,
+A multilinear polynomial in $n$ variables is a special type of multivariate polynomial where each variable in any term appears at most with the power of one (i.e., powers are either 0 or 1). For such polynomials, each variable combination can either be present or absent in a term, leading to each term being uniquely defined by a subset of the variables. For example, with two variables $x$ and $y$, the possible terms are 1, $x$, $y$, and $xy$. Therefore,
 
- the number of different terms, and hence the number of coefficients, in a multilinear polynomial with $ n $ variables is $ 2^n $. This is derived from the fact that each variable can either be included or excluded from each term independently. The concept of multilinear extensions relates to extending a discrete function defined on subsets of a set to a continuous function on the cube $ [0, 1]^n $. If we consider fitting a multilinear polynomial to $ 2^n $ points where each point corresponds to a vertex of the hypercube defined by $ [0, 1]^n $, and there are $ 2^n $ coefficients in the polynomial.
+ the number of different terms, and hence the number of coefficients, in a multilinear polynomial with $n$ variables is $2^n$. This is derived from the fact that each variable can either be included or excluded from each term independently. The concept of multilinear extensions relates to extending a discrete function defined on subsets of a set to a continuous function on the cube $[0, 1]^n$. If we consider fitting a multilinear polynomial to $2^n$ points where each point corresponds to a vertex of the hypercube defined by $[0, 1]^n$, and there are $2^n$ coefficients in the polynomial.
 
 ## Schwartz-Zippel Lemma
 
-The Schwartz-Zippel Lemma is an important principle in algebra, offering a probabilistic approach to ascertain whether a polynomial is identical to zero. Specifically, it posits that for a non-zero polynomial $ f(x _1, x _2, \ldots, x _n) $ over a field, with a total degree $ d $, the probability that $ f(a _1, a _2, \ldots, a _n) = 0 $ over a randomly chosen set of inputs $ a _1, a _2, \ldots, a _n $ from a finite subset $ S $ of the field is upper-bounded by $ \frac{d}{|S|} $. This lemma is instrumental in algorithms for polynomial identity testing, where it provides an efficient means of verifying polynomial equivalence by demonstrating that if two polynomials are not identical, then their difference has a low probability of evaluating to zero over a random selection of inputs, namely, $ 1 - \frac{d}{|S|} $ with probability $ 1 - \frac{d}{|S|} $.
+The Schwartz-Zippel Lemma is an important principle in algebra, offering a probabilistic approach to ascertain whether a polynomial is identical to zero. Specifically, it posits that for a non-zero polynomial $f(x _1, x _2, \ldots, x _n)$ over a field, with a total degree $d$, the probability that $f(a _1, a _2, \ldots, a _n) = 0$ over a randomly chosen set of inputs $a _1, a _2, \ldots, a _n$ from a finite subset $S$ of the field is upper-bounded by $\frac{d}{|S|}$. This lemma is instrumental in algorithms for polynomial identity testing, where it provides an efficient means of verifying polynomial equivalence by demonstrating that if two polynomials are not identical, then their difference has a low probability of evaluating to zero over a random selection of inputs, namely, $1 - \frac{d}{|S|}$ with probability $1 - \frac{d}{|S|}$.
 
 The Schwartz-Zippel Lemma is especially useful in the construction of zero-knowledge proofs, since it enables the verifier to check the information of a big polynomial with few points.
 
-Formally, if $ f $ is a polynomial of degree $ d $ not identically zero, then for randomly chosen $ a _1, a _2, \ldots, a _n $, the lemma asserts:
+Formally, if $f$ is a polynomial of degree $d$ not identically zero, then for randomly chosen $a _1, a _2, \ldots, a _n$, the lemma asserts:
 
-$$ \Pr[f(a _1, a _2, \ldots, a _n) = 0] \leq \frac{d}{|S|} $$
+$$\Pr[f(a _1, a _2, \ldots, a _n) = 0] \leq \frac{d}{|S|}$$
 
 ## Conclusion
 
