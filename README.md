@@ -5,4 +5,4 @@ Blogs:
 
 ---
 Lectures:
-- [Lecture0](./lectures/lecture0.md)
+- [Lecture0](./lectures/lecture0.md) basic arithmetic background of ZKP.
