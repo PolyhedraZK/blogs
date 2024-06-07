@@ -11,15 +11,15 @@ The primary motivation behind Bi-Variate KZG (Bi-KZG) is to enhance distributed 
 - **Plonk-based**: Refer to [Pianist](https://eprint.iacr.org/2023/1271).
 - **GKR-based**: We developed DExpander, which is based on GKR and Bi-KZG. The GKR is a modified version from the original paper [Libra](https://eprint.iacr.org/2019/317).
 
-Our focus is on the GKR-based approach. In the original Libra paper, the GKR + KZG solution requires $ O(\log{n}) $ pairings, where $ n $ is the input layer size. This requirement stems from the fact that GKR is based on Multi-Linear Extension (MLE), where a polynomial has $ O(\log{n}) $ variables. In Libra, we used a $ O(\log{n}) $ variate KZG commitment to commit the MLE, which incurs $ O(\log{n}) $ pairings for the verifier. Since pairings are extremely expensive for on-chain pre-compilation, minimizing on-chain costs is crucial.
+Our focus is on the GKR-based approach. In the original Libra paper, the GKR + KZG solution requires $O(\log{n})$ pairings, where $n$ is the input layer size. This requirement stems from the fact that GKR is based on Multi-Linear Extension (MLE), where a polynomial has $O(\log{n})$ variables. In Libra, we used a $O(\log{n})$ variate KZG commitment to commit the MLE, which incurs $O(\log{n})$ pairings for the verifier. Since pairings are extremely expensive for on-chain pre-compilation, minimizing on-chain costs is crucial.
 
-In our solution, we modified the MLE in the input layer to a Bi-Variate Extension. The Bi-Variate Extension of an array $ V = [v_0, v_1, \ldots, v_{n-1}] $ is denoted by the polynomial $ \tilde{V}(x, y) $, and the evaluation of the polynomial is defined as follows:
+In our solution, we modified the MLE in the input layer to a Bi-Variate Extension. The Bi-Variate Extension of an array $V = \[v _0, v _1, \ldots, v _{n-1}\]$ is denoted by the polynomial $ \tilde{V}(x, y) $, and the evaluation of the polynomial is defined as follows:
 
 $$ \tilde{V}(x, y) := v_{x \cdot \frac{n}{M} + y}, \quad 0 \le x \le M, \quad 0 \le y \le \frac{n}{M} $$
 
-where $ M $ is the number of machines.
+where $M$ is the number of machines.
 
-Each machine only stores its own range of values from the array $ V $. We will provide detailed algorithmic insights in a dedicated blog post about distributed GKR next week.
+Each machine only stores its own range of values from the array $V$. We will provide detailed algorithmic insights in a dedicated blog post about distributed GKR next week.
 
 # The commitment scheme
 ## Pairing
@@ -203,7 +203,7 @@ e(\pi_0, g_2^{\tau_0})\cdot e(\pi_1, g_2^{\tau_1}) = e(\pi_0^a \cdot \pi_1^b \cd
 }
 $$
 
-This plausibly replaces two exponents in $G2$ with two exponents in $G1$, which may improve the gas cost if the verifier is deployed as a smart contract on the blockchain.
+This plausibly replaces two exponents in $\mathbb{G}_2$ with two exponents in $\mathbb{G}_1$, which may improve the gas cost if the verifier is deployed as a smart contract on the blockchain.
 
 # Distributed Computing
 The primary advantage of bivariate KZG commitment over univariate is its facilitation of distributed computation. In Proto-Danksharding, we've already observed its utility in data availability sampling. We intend to utilize it for distributed zero-knowledge proof generation in our context. A common example involves using the Message Passing Interface (MPI) to distribute multiple tasks across various machines. Below, we delineate the necessary modifications to each algorithm within the distributed architecture. For the sake of simplicity, let's assume there are $n \leq N$ identical machines involved. Let's further assume $n|N$ and $d = N/n$.
