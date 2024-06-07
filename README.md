@@ -40,10 +40,10 @@ We welcome your pull requests (PRs) and ask that you follow these guidelines to 
 - **PR Types and Specific Guidelines**:
   - **[BUG]** for bug fixes:
     - **Title**: Start with `[BUG]` followed by a brief description.
-    - **Content**: Explain the issue being fixed, steps to reproduce, and the impact of the bug. Include any relevant error logs or screenshots.
+    - **Content**: Explain the issue and the logic behind the bug.
   - **[NEW]** for new documents and knowledge:
-    - **Title**: Start with `[NEW]` followed by a concise feature description.
-    - **Content**: Discuss the benefits of the feature, possible use cases, and any changes it introduces to existing functionality.
+    - **Title**: Start with `[NEW]` followed by a concise description.
+    - **Content**: Discuss the benefits of the new article, possible use cases, and potential impacts.
     - **Documentation**: Update relevant documentation and examples.
   - **[IMPROVE]** for documentation improvements:
     - **Title**: Start with `[IMPROVE]` and a short description of what is being improved.
