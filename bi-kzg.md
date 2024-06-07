@@ -13,7 +13,7 @@ The primary motivation behind Bi-Variate KZG (Bi-KZG) is to enhance distributed 
 
 Our focus is on the GKR-based approach. In the original Libra paper, the GKR + KZG solution requires $ O(\log{n}) $ pairings, where $ n $ is the input layer size. This requirement stems from the fact that GKR is based on Multi-Linear Extension (MLE), where a polynomial has $ O(\log{n}) $ variables. In Libra, we used a $ O(\log{n}) $ variate KZG commitment to commit the MLE, which incurs $ O(\log{n}) $ pairings for the verifier. Since pairings are extremely expensive for on-chain pre-compilation, minimizing on-chain costs is crucial.
 
-In our solution, we modified the MLE in the input layer to a Bi-Variate Extension. The Bi-Variate Extension of an array $ V = [v_0, v_1, \ldots, v_{n-1}] $ is denoted by the polynomial $ \tilde{V}(x, y) $, and the evaluation of the polynomial is defined as follows:
+In our solution, we modified the MLE in the input layer to a Bi-Variate Extension. The Bi-Variate Extension of an array $ V = [v _0, v _1, \ldots, v _{n-1}] $ is denoted by the polynomial $ \tilde{V}(x, y) $, and the evaluation of the polynomial is defined as follows:
 
 $$ \tilde{V}(x, y) := v_{x \cdot \frac{n}{M} + y}, \quad 0 \le x \le M, \quad 0 \le y \le \frac{n}{M} $$
 
