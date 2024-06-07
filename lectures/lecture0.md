@@ -44,19 +44,19 @@ A simple example of a finite field is the set of integers modulo a prime number 
 
 ### Formal Definition
 
-A finite field $\mathbb{F}$is a set containing a finite number of elements, equipped with two binary operations—addition (+) and multiplication (·)—that adhere to the following axioms:
+A finite field $\mathbb{F}$ is a set containing a finite number of elements, equipped with two binary operations—addition (+) and multiplication (·)—that adhere to the following axioms:
 
 1. **Closure**: For every $a, b \in \mathbb{F}$, both $a + b$ and $a \cdot b$ are in $\mathbb{F}$.
-2. **Associativity**: For all $a, b, c \in \mathbb{F}$, the equations $(a + b) + c = a + (b + c)$ and $(a \cdot b) \cdot c = a \cdot (b \cdot c)$hold.
+2. **Associativity**: For all $a, b, c \in \mathbb{F}$, the equations $(a + b) + c = a + (b + c)$ and $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ hold.
 3. **Commutativity**: For all $a, b \in \mathbb{F}$, $a + b = b + a$ and $a \cdot b = b \cdot a$.
-4. **Identity Elements**: There exist two distinct elements, 0 and 1 in $\mathbb{F}$, such that for every $a \in \mathbb{F}$ ,$a + 0 = a$ and $a \cdot 1 = a$.
+4. **Identity Elements**: There exist two distinct elements, 0 and 1 in $\mathbb{F}$, such that for every $a \in \mathbb{F}$, $a + 0 = a$ and $a \cdot 1 = a$.
 5. **Additive Inverses**: For every $a \in \mathbb{F}$, there exists an element $-a \in \mathbb{F}$ such that $a + (-a) = 0$.
 6. **Multiplicative Inverses**: For every $a \in \mathbb{F}$ with $a \neq 0$, there exists an element $a^{-1} \in \mathbb{F}$ such that $a \cdot a^{-1} = 1$.
 7. **Distributivity**: For all $a, b, c \in \mathbb{F}$, $a \cdot (b + c) = (a \cdot b) + (a \cdot c)$.
 
 ## Polynomials
 
-Polynomials are mathematical expressions involving a sum of powers in one or more variables multiplied by coefficients. For example,$f(x) = a _n x^n + a _{n-1} x^{n-1} + \cdots + a _1 x + a _0$ is a polynomial in one variable ($x$), and $g(x, y) = b _{mn} x^m y^n + \cdots + b _{01} y + b _{00}$ is a polynomial in two variables ($x$ and $y$). Polynomials play a central role in numerous areas of mathematics and science, from solving equations and modeling physical phenomena to forming the basis of polynomial-based cryptographic schemes.
+Polynomials are mathematical expressions involving a sum of powers in one or more variables multiplied by coefficients. For example, $f(x) = a _n x^n + a _{n-1} x^{n-1} + \cdots + a _1 x + a _0$ is a polynomial in one variable ($x$), and $g(x, y) = b _{mn} x^m y^n + \cdots + b _{01} y + b _{00}$ is a polynomial in two variables ($x$ and $y$). Polynomials play a central role in numerous areas of mathematics and science, from solving equations and modeling physical phenomena to forming the basis of polynomial-based cryptographic schemes.
 
 In the context of zero-knowledge proofs and other cryptographic applications, polynomials can be used in various ways, including constructing polynomial equations that have specific properties or solutions, or as part of more complex structures like polynomial commitment schemes, where they enable efficient verification of properties without revealing the polynomial itself.
 
@@ -66,9 +66,9 @@ $$f(x _1, x _2, \ldots, x _n) = \sum a _{i _1 i _2 \ldots i _n} x _1^{i _1} x _2
 
 where $n$ represents the number of variables, $a _{i _1 i _2 \ldots i _n}$ are the coefficients, which can be real or complex numbers, and $i _1, i _2, \ldots, i _n$ are non-negative integers representing the powers of each variable. The total degree of a multivariate polynomial is the highest total degree of its monomials, where the total degree of a monomial is the sum of the powers of all its variables.
 
-A multilinear polynomial in $n$ variables is a special type of multivariate polynomial where each variable in any term appears at most with the power of one (i.e., powers are either 0 or 1). For such polynomials, each variable combination can either be present or absent in a term, leading to each term being uniquely defined by a subset of the variables. For example, with two variables $x$ and $y$, the possible terms are 1, $x$, $y$, and $xy$. Therefore,
+A multilinear polynomial in $n$ variables is a special type of multivariate polynomial where each variable in any term appears at most with the power of one (i.e., powers are either 0 or 1). For such polynomials, each variable combination can either be present or absent in a term, leading to each term being uniquely defined by a subset of the variables. For example, with two variables $x$ and $y$, the possible terms are 1, $x$, $y$, and $xy$. 
 
- the number of different terms, and hence the number of coefficients, in a multilinear polynomial with $n$ variables is $2^n$. This is derived from the fact that each variable can either be included or excluded from each term independently. The concept of multilinear extensions relates to extending a discrete function defined on subsets of a set to a continuous function on the cube $[0, 1]^n$. If we consider fitting a multilinear polynomial to $2^n$ points where each point corresponds to a vertex of the hypercube defined by $[0, 1]^n$, and there are $2^n$ coefficients in the polynomial.
+Therefore, the number of different terms, and hence the number of coefficients, in a multilinear polynomial with $n$ variables is $2^n$. This is derived from the fact that each variable can either be included or excluded from each term independently. The concept of multilinear extensions relates to extending a discrete function defined on subsets of a set to a continuous function on the cube $[0, 1]^n$. If we consider fitting a multilinear polynomial to $2^n$ points where each point corresponds to a vertex of the hypercube defined by $[0, 1]^n$, and there are $2^n$ coefficients in the polynomial.
 
 ## Schwartz-Zippel Lemma
 
