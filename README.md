@@ -1,4 +1,4 @@
-Blogs and Lectures
+# Blogs and Lectures
 
 This repo is the place where we share all of our advanced and basic knowledge, it will update on a weekly basis.
 
