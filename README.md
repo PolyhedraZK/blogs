@@ -3,7 +3,9 @@
 This repo is the place where we share all of our advanced and basic knowledge, it will update on a weekly basis.
 
 
+## Discussion Groups
 
+Telegram: https://t.me/+XEdEEknIdaI0YjEx
 
 ---
 ## Blogs
