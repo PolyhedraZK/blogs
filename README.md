@@ -1,7 +1,12 @@
 # Blogs and Lectures
 
 This repo is the place where we share all of our advanced and basic knowledge, it will update on a weekly basis.
+---
+## Update schedule
 
+It will update every week on Thursday/Friday PST. 
+
+---
 
 ## Discussion Groups
 
