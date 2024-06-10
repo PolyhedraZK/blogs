@@ -4,7 +4,7 @@ This repo is the place where we share all of our advanced and basic knowledge, i
 ---
 ## Update schedule
 
-It will update every week on Thursday/Friday PST. 
+We will post new content update and merge reviewed pull requests every week on Thursday/Friday PST. 
 
 ---
 
