@@ -1,7 +1,9 @@
 # Blogs and Lectures
 
 This repo is the place where we share all of our advanced and basic knowledge, it will update on a weekly basis.
+
 ---
+
 ## Update schedule
 
 We will post new content update and merge reviewed pull requests every week on Thursday/Friday PST. 
