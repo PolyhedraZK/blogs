@@ -163,19 +163,19 @@ To substantiate this claim, the prover must calculate two quotients:
 $$
 \displaylines{
 Q_0(x, b) = \frac{f(x,b) - u}{x-a}\\
-Q_1(a,y) = \frac{f(a,y) - u'}{y-b}
+Q_1(x,y) = \frac{f(x,y) - u'}{y-b}
 }
 $$
 
 
-In this context, $u = f(a,b)$ and $u' = f(\tau_0, b)$. Given the evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$), we can calculate $f(x,b)$ and $f(a,y)$. Additionally, we can compute $Q_0(x,b)$ and $Q_1(a,y)$ using their evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$).
+In this context, $u = f(a,b)$ and $u' = f(\tau_0, b)$. Given the evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$), we can calculate $f(x,b)$ and $f(a,y)$. Additionally, we can compute $Q_0(x,b)$ and $Q_1(x,y)$ using their evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$).
 
 Subsequently, the prover can calculate the proof in the following manner:
 
 $$
 \displaylines{
 \pi_0 = g_1^{Q_0(\tau_0, b)}\\
-\pi_1 = g_1^{Q_1(a, \tau_1)}
+\pi_1 = g_1^{Q_1(\tau_0, \tau_1)}
 }
 $$
 
@@ -183,7 +183,7 @@ Subsequently, the prover sends the evaluation $u$ and the proof $(\pi_0, \pi_1)$
 
 
 ## Verifying
-Provided with the verification keys $(g_2^{\tau_0}, g_2^{\tau_1})$, the commitment $c = g_1^{f(\tau_0,\tau_1)}$, the evaluation $u = f(a, b)$, and the proofs $\pi_0 = g_1^{Q_0(\tau_0, b)}$ and $\pi_1 = g_1^{Q_1(a, \tau_1)}$, the verifier can verify the evaluation through the subsequent pairing checks:
+Provided with the verification keys $(g_2^{\tau_0}, g_2^{\tau_1})$, the commitment $c = g_1^{f(\tau_0,\tau_1)}$, the evaluation $u = f(a, b)$, and the proofs $\pi_0 = g_1^{Q_0(\tau_0, b)}$ and $\pi_1 = g_1^{Q_1(\tau_0, \tau_1)}$, the verifier can verify the evaluation through the subsequent pairing checks:
 
 $$
 \displaylines{
