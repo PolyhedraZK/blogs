@@ -168,7 +168,7 @@ Q_1(x,y) = \frac{f(x,y) - u'}{y-b}
 $$
 
 
-In this context, $u = f(a,b)$ and $u' = f(\tau_0, b)$. Given the evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$), we can calculate $f(x,b)$ and $f(a,y)$. Additionally, we can compute $Q_0(x,b)$ and $Q_1(x,y)$ using their evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$).
+In this context, $u = f(a,b)$ and $u' = f(\tau_0, b)$. Given the evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$), we can calculate $f(x,b)$ and $f(x,y)$. Additionally, we can compute $Q_0(x,b)$ and $Q_1(x,y)$ using their evaluations on $\omega_0^i$ ($i \in [0, N]$) and $\omega_1^j$ ($j \in [0, M]$).
 
 Subsequently, the prover can calculate the proof in the following manner:
 
