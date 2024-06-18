@@ -5,9 +5,9 @@ Within the Ethereum beacon chain, previously referred to as Ethereum 2.0, a Proo
 - Either a public randomness (upon which [a committee is selected](https://hackmd.io/@benjaminion/shuffling)), accompanied by a set of signatures from the committee members endorsing the block;
 - Or a zero-knowledge proof that validates the aforementioned statement.
 
-The second method is pivotal as it necessitates significantly less storage and communication ($O(1)$ vs $O(N)$ for a committee of $N$ validators), can be verified more efficiently, and, crucially, on-chain by a smart contract. This last feature is particularly beneficial as it further facilitates zero-knowledge, decentralized bridges with atomic swaps.
+The second method is pivotal as it necessitates significantly less storage and communication ($O(1)$ vs $O(N)$ for a committee of $N$ validators, where $N$ is now [on the order of Millions](https://beaconcha.in/charts/validators)), can be verified more efficiently, and, crucially, on-chain by a smart contract. This last feature is particularly beneficial as it further facilitates zero-knowledge, decentralized bridges with atomic swaps.
 
-We've coined this solution as __Concise Proof of Consensus__.
+We've coined this solution as __Succinct Proof of Consensus__.
 
 
 # Task break down
