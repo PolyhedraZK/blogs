@@ -94,7 +94,7 @@ $$
 In this context, $P$ represents a `pivot`, calculated as `hash(seed, current round) mod N`. Therefore, $P$ remains constant for all indices within the same round. We can circumvent the use of modular arithmetic by defining the following equations:
 
 $$
-flip =\left\{
+flip =\left\\{
 \begin{array}{ll}
 P - index  & index < P \\
 N + P - index & index \geq P
@@ -113,7 +113,7 @@ Since flip is either `P-index` or `N+P-index`, we know that position is either `
 Here, we define four ranges, $[0, P/2)$, $[P/2, P)$, $[P, (N+P)/2)$, $[(N+P)/2, N)$.
 
 $$
-P =\left\{
+P =\left\\{
 \begin{array}{ll}
 index  & index \in [0, P/2)\\
 flip  & index \in [P/2, P) \\
