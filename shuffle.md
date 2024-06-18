@@ -26,10 +26,10 @@ Let's first address the simpler component. Each validator signs their vote using
 The more complex component involves proving that the subset is correctly derived from the public randomness. This is achieved via a shuffling algorithm, depicted as follows:
 
 $$
-\forall i \in [0, N), \quad\quad\texttt{shuffled\_indices[i]} = \sigma( \texttt{seed},\quad \texttt{indices}[i])
+\forall i \in [0, N), \quad\quad\texttt{ShuffledIndices}[i] = \sigma( \texttt{seed},\quad \texttt{indices}[i])
 $$
 
-Here, $\texttt{shuffled\_indices}$ collectively form the selected subset of the committee, while the entire $\texttt{indices}$ set represents all committee members. $\texttt{seed}$ is the randomness of the given epoch/slot. The exact value of the seed is computed from the [Randao](https://eth2book.info/capella/part2/building_blocks/randomness/#the-randao) value of the last slot of the epoch two epochs prior. In other words, the slots in the current epoch will have the same Randao value and the same seed. 
+Here, $\texttt{ShuffledIndices}$ collectively form the selected subset of the committee, while the entire $\texttt{indices}$ set represents all committee members. $\texttt{seed}$ is the randomness of the given epoch/slot. The exact value of the seed is computed from the [Randao](https://eth2book.info/capella/part2/building_blocks/randomness/#the-randao) value of the last slot of the epoch two epochs prior. In other words, the slots in the current epoch will have the same Randao value and the same seed. 
 
 Moving forward, our primary focus will be on validating the correctness of the shuffle operation.
 
