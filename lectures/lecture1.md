@@ -12,7 +12,7 @@ This extension is achieved by interpolating the original function to find a poly
 ## Example
 Consider a binary function defined on a discrete set of points in a 2-dimensional space. Our objective is to extend this function to a continuous domain while preserving its linearity with respect to each variable. This is where multi-linear polynomials come into play, serving as an ideal mechanism for achieving such an extension.
 
-Let's define a binary function $f: \{0, 1\}^2 \rightarrow \mathbb{R}$ with values at the vertices of a unit square as follows:
+Let's define a binary function $f: ${0, 1} $^2 \rightarrow \mathbb{R}$ with values at the vertices of a unit square as follows:
 
 - $f(0, 0) = 0$
 - $f(1, 0) = 1$
