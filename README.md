@@ -17,17 +17,18 @@ Telegram: https://t.me/+XEdEEknIdaI0YjEx
 ---
 ## Blogs
 Blogs will be somewhat more advanced topics, and content will closely related to our latest development. This part usually requires some pre-existing knowledge in cryptography.
-- [Bivariate-KZG](./bi-kzg.md): related to distributed computing. (week of Jun 03 2024)
-
+- [Bivariate-KZG](./blogs/bi-kzg.md): related to distributed computing. (week of Jun 03 2024)
+- [Ethereum Committee Shuffle](./blogs/shuffle.md): related to Ethereum. (week of Jun 17 2024)
 ---
 ## Lectures
 Lectures will teach you ZKP from scratch. No background knowledge required.
 - [Lecture0](./lectures/lecture0.md): basic arithmetic background of ZKP. (week of Jun 03 2024)
-
----
+- [Lecture1](./lectures/lecture1.md): multi-linear extension. (week of Jun 10 2024)
+- [Lecture2](./lectures/lecture2.md): sumcheck protocol. (week of Jun 28 2024)
 
 ## Video
-TBD
+- [Lecture0 Video0](./lectures/lecture0/session%201/video/session%20001.mp4)
+- [Lecture0 Video1](./lectures/lecture0/session%202/video/session%20002.mp4)
 
 ---
 
