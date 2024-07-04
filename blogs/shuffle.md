@@ -1,4 +1,4 @@
-Succinct proof of consensus
+Ethereum full consensus proof
 ---
 
 Within the Ethereum beacon chain, previously referred to as Ethereum 2.0, a Proof of Stake (PoS) mechanism is employed for consensus. Our overarching objective is to validate each block. This tool finds its applications in [zero-knowledge light clients](https://docs.zkbridge.com/zklightclient-overview/introduction). Specifically, a proof of consensus can be:
@@ -7,7 +7,7 @@ Within the Ethereum beacon chain, previously referred to as Ethereum 2.0, a Proo
 
 The second method is pivotal as it necessitates significantly less storage and communication ($O(1)$ vs $O(N)$ for a committee of $N$ validators, where $N$ is now [on the order of Millions](https://beaconcha.in/charts/validators)), can be verified more efficiently, and, crucially, on-chain by a smart contract. This last feature is particularly beneficial as it further facilitates zero-knowledge, decentralized bridges with atomic swaps.
 
-We've coined this solution as __Succinct Proof of Consensus__.
+We've coined this solution as __Ethereum full consensus proof__.
 
 
 # Task break down
