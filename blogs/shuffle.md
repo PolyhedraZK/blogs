@@ -87,9 +87,8 @@ The next challenge is sharing the hash output for positions within the same chun
 Remember that in the shuffle algorithm, we must execute a modular arithmetic operation and compare a `flip` with an `index` for each `index` in every round. This results in `SR \times N` modular arithmetic and comparison operations.
 
 We notice a correlation between a flip and an index:
-$$
-flip = N + P - index \bmod N
-$$
+
+$flip = N + P - index \bmod N$
 
 In this context, $P$ represents a `pivot`, calculated as `hash(seed, current round) mod N`. Therefore, $P$ remains constant for all indices within the same round. We can circumvent the use of modular arithmetic by defining the following equations:
 
@@ -104,7 +103,7 @@ $$
 
 In other words, if the `pivot` $P$ is larger than the index, we calculate `flip` using the first equation. Otherwise, we use the second equation. This approach effectively replaces a modular arithmetic operation with a comparison operation. However, a bit-by-bit comparison operation can still be costly. Our solution is to compute the difference between the two values and check if the difference is zero.
 
-We introduce a range flag $F_0$. If this flag is $false$, the corresponding element will fall within the range $[0, P)$. If $true$, the element will fall within the range $[P, N-1]$. We initialize the flag as $0$. For each index, we perform $f_0 = \texttt{IsZero}(\texttt{Sub}(index, P))$. Once the output $f_0$ is $1$ (true), we flip the range flag from 0 to 1 (i.e., $F_0=\texttt{Xor}(F_0 , f_0)$), indicating the index now falls within the range $[P, N-1]$. This method allows us to avoid using modular arithmetic and comparison operations, at the cost of introducing the $\texttt{IsZero}$ operation, which is significantly cheaper in the circuit.
+We introduce a range flag $F_0$. If this flag is $false$, the corresponding element will fall within the range $[0, P)$. If $true$, the element will fall within the range $[P, N-1]$. We initialize the flag as $0$. For each index, we perform $f_0 = \texttt{IsZero}(\texttt{Sub}(index, P))$. Once the output $f_0$ is $1$ (true), we flip the range flag from 0 to 1 $(F_0 = \texttt{Xor}(F_0, f_0))$ , indicating the index now falls within the range $[P, N-1]$. This method allows us to avoid using modular arithmetic and comparison operations, at the cost of introducing the $\texttt{IsZero}$ operation, which is significantly cheaper in the circuit.
 
 Extending this idea further,  we find that we can avoid comparison operations for calculating positions, which are the maximum between index and flip.
 
