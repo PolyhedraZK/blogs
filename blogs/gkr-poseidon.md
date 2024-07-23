@@ -23,7 +23,8 @@ Embracing this methodology, we transitioned to our Expander proof system, a comp
 | AMD 7950x3D   | 16      |             |                 |                 |
 
 # Our Technique
-We presume a certain level of familiarity with the GKR proof system. At its core, GKR validates what is known as a layered circuit, where each layer's cells are computed from the preceding layer's cells. The integrity of such computations is ensured through a Sumcheck protocol. For an in-depth exploration of our GKR prover, refer to our [GKR By Hand](https://github.com/PolyhedraZK/blogs/blob/gkr-poseidon/blogs/gkr-by-hand.md) tutorial.
+We presume a certain level of familiarity with the GKR proof system. For an in-depth exploration of our GKR prover, refer to our [GKR By Hand](https://github.com/PolyhedraZK/blogs/blob/gkr-poseidon/blogs/gkr-by-hand.md) tutorial.
+At its core, GKR validates what is known as a layered circuit, where each layer's cells are computed from the preceding layer's cells. The integrity of such computations is ensured through a Sumcheck protocol. 
 
 ## Poseidon Hash Explained
 
@@ -43,6 +44,8 @@ We illustrate the process using the Poseidon hash over M31. The hash function fo
 
 GKR proves to be highly efficient for validating Poseidon hashes. It operates in linear time relative to the circuit size, $O(N)$, outperforming mainstream provers like Plonk and Groth16, which run in at least $O(N\log N)$. This efficiency is particularly beneficial for functions like Poseidon, characterized by small input/output sizes but requiring substantial intermediate computations. Unlike Plonk and Groth16, where the prover must commit to all intermediate witnesses, GKR necessitates commitments only for the inputs and outputs, leveraging Sumcheck protocols to manage intermediate data. For applications where input/output privacy isn't a concern, such as GKRed Poseidon for Merkle Patricia Trees (MPT), commitments can be bypassed entirely, allowing direct transmission of inputs and outputs to the verifier.
 
+The cost model for the GKR proving system is notably distinct from those used in Plonk and Groth16. While the latter two systems primarily assess computational costs based on the number of witnesses, GKR adopts a different approach due to its unique handling of intermediate witnesses as stated above. In GKR, there's no need for commitments to these intermediate witnesses, shifting the focus towards the total number of Sumcheck protocols executed. This change emphasizes the importance of Sumcheck protocols in evaluating GKR's computational efficiency, marking a significant departure from the cost assessment strategies of Plonk and Groth16.
+
 ## Linear GKR prover for Poseidon
 In the standard GKR prover framework, the computation for two consecutive layers involves Add and Mul gates, defined as:
 
@@ -53,8 +56,9 @@ $$
 
 This operation spans over $\\{0,1\\}^{2n}$, leading to a quadratic computational cost of $O(2^{2n})$ for a prover with circuit size $2^n$. However, in our linear GKR construction, as detailed in [Libra](https://eprint.iacr.org/2019/317.pdf), we demonstrate a method to reduce this cost to linear. This is achieved by decomposing the gate function into two phases, each governed by a Sumcheck protocol over $n$ variables.
 
+In the design of layered circuits, particularly for cryptographic applications like the Poseidon hash function, it's crucial to recognize that certain elements, such as the round keys and the MDS (Maximum Distance Separable) matrix, remain constant across all instances. These elements can be effectively embedded into the circuit's architecture, treated as intrinsic parts of the circuit's blueprint. This integration allows for operations involving these constants—additions and multiplications—to be executed with minimal computational overhead, significantly enhancing the circuit's efficiency. Such optimizations are pivotal in achieving high-performance and cost-effective cryptographic computations.
 
-It's important to note that the round keys and the MDS matrix are constant inputs to the circuit. The additions and multiplications by constants are nearly cost-free in a layered circuit. The primary computational bottleneck is the S-box operation, which requires 3 consecutive layers. Consequently, the circuit for each Poseidon iteration comprises $(4 + 14 + 4) \times 3 + 2 = 68$ layers, where additional 2 layers come from the input and output layers. Under the vanilla linear GKR protocol, this equates to $68 \times 2 = 136$ Sumchecks, as each layer necessitates $2$ Sumchecks.
+The primary computational bottleneck is the S-box operation, which requires 3 consecutive layers. Consequently, the circuit for each Poseidon iteration comprises $(4 + 14 + 4) \times 3 + 2 = 68$ layers, where additional 2 layers come from the input and output layers. Under the vanilla linear GKR protocol, this equates to $68 \times 2 = 136$ Sumchecks, as each layer necessitates $2$ Sumchecks.
 
 ## New result: customized GKR for Poseidon
 
@@ -67,8 +71,8 @@ $$
 $$
 
 This adjustment yields significant optimizations:
-- Each partial or full round of the Poseidon hash requires only a single GKR layer.
-- Each GKR layer mandates merely one Sumcheck protocol over $n$ variables.
+- Each partial or full round of the Poseidon hash requires only a single GKR layer; c.f. 3 layers in the vanilla scheme.
+- Each GKR layer mandates merely one Sumcheck protocol over $n$ variables; c.f. 2 Sumchecks in the vanilla scheme.
 - We have eliminated the need for claim aggregation in GKR, as we now utilize only one polynomial in each Sumcheck.
 
 Consequently, this approach drastically reduces the number of required Sumcheck protocols from 136 to 24, albeit at the cost of employing a marginally more complex gate function. This optimization not only enhances computational efficiency but also streamlines the prover's operation for the Poseidon hash function within the GKR framework.
