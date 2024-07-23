@@ -3,13 +3,23 @@ GKRed Poseidon and beyond
 
 Polyhedra is proud to introduce the GKRed Poseidon: a zero-knowledge proof system optimized for the Poseidon hash function. Leveraging our [Expander prover](https://github.com/PolyhedraZK/Expander-rs), we can now validate ~1 million~ Poseidon hashes within just 1 second, ~doubling~ the efficiency of the current state-of-the-art.
 
-# Stateless Ethereum Clients
+## Appications
+
+### Stateless Ethereum Clients
 
 [Stateless Ethereum clients](https://consensys.io/blog/modelling-stateless-ethereum-a-journey-into-the-unknown) are designed to validate incoming blocks without needing to store the entire state database. These clients rely on proofs for state validity instead of maintaining a local copy of Ethereum's state. The traditional database, the [Merkle-Patricia tree](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/), demands large proofs for each state, rendering it inefficient for such applications. The [Verkle tree](https://ethereum.org/en/roadmap/verkle-trees/) approach, outlined in the [Ethereum roadmap](https://x.com/VitalikButerin/status/1741190491578810445) as "the Verge", is anticipated to be a more suitable solution. Recently, Vitalik Buterin proposed the "Starked Poseidon" approach, which promises even better performance than the Verkle tree method.
 
 The Starked Poseidon approach introduces significant innovations:
 1. It replaces the Merkle-Patricia tree's hash functions with a circuit friendly hash function known as the Poseidon hash functions, operating over a small field, specifically, a 31-bit Mersenne prime (referred to M31).
 2. It employs a [STARK protocol](https://eprint.iacr.org/2018/046) to produce a succinct proof, verifying the correctness of all Merkle-Patricia Tree (MPT) openings.
+
+### Prove recursion
+
+Proof recursion involves leveraging a proof system to certify the correctness of one or more existing proofs. In this paradigm, a singular recursive proof can affirm the entirety of previous proofs, necessitating the encapsulation of the verification algorithm within a circuit framework. A widely adopted proving system incorporates FRI (Fast Reed-Solomon Interactive Oracle Protocol) commitment schemes, where the verification process is primarily driven by Poseidon hash computations. Thus, enhancing the efficiency of Poseidon hash proofs directly amplifies the effectiveness and speed of recursive proving systems.
+
+Proof recursion unlocks a plethora of applications, including [aggregate signatures for consensus mechanisms](https://ethresear.ch/t/signature-merging-for-large-scale-consensus/17386), more cost-effective zkEVMs and zk-rollups, [confidential execution of smart contracts](https://eprint.iacr.org/2018/962.pdf), among others. This advancement heralds a new era in blockchain technology, offering enhanced scalability, privacy, and efficiency.
+
+## Prior State-of-the-art
 
 In [a recent announcement](https://starkware.co/blog/starkware-new-proving-record/), Starkware announced that their STWO system achieved a remarkable 600k hashes per second for the Poseidon hash over M31, using a MacBook Pro M3 Max laptop.
 
