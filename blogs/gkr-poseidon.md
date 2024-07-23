@@ -1,7 +1,7 @@
-GKRed Poseidon
+GKRed Poseidon and beyond
 ------
 
-Polyhedra is proud to introduce the GKRed Poseidon: a zero-knowledge proof system optimized for the Poseidon hash function. Leveraging our Expander prover, we can now validate 1 million Poseidon hashes within just 1 second, doubling the efficiency of the current state-of-the-art.
+Polyhedra is proud to introduce the GKRed Poseidon: a zero-knowledge proof system optimized for the Poseidon hash function. Leveraging our Expander prover, we can now validate ~1 million~ Poseidon hashes within just 1 second, ~doubling~ the efficiency of the current state-of-the-art.
 
 # Stateless Ethereum Clients
 
@@ -61,7 +61,7 @@ It's important to note that the round keys and the MDS matrix are constant input
 For the Poseidon hash circuit, which is the focus of our discussion, the requirement simplifies as it does not necessitate Add or Mul gates but solely a power 5 gate. This simplification is expressed as:
 
 $$
-\tilde{V}\_{i}(z) = \sum\_{\omega\in \{0,1\}^{n}} \left(
+\tilde{V}\_{i}(z) = \sum\_{\omega\in \\{0,1\\}^{n}} \left(
 \tilde{Add}(z, \omega)\tilde{V}\_{i+1}(\omega) +
 \tilde{Pow5}(z, \omega)\tilde{V}\_{i+1}(\omega) \right)
 $$
@@ -78,11 +78,11 @@ Consequently, this approach drastically reduces the number of required sumcheck 
 Our customized GKR framework extends its utility beyond the Poseidon hash function, incorporating a square gate at minimal cost. The equation below illustrates this capability:
 
 $$
-\tilde{V}_{i}(z) = \sum_{\omega\in \{0,1\}^{n}} \left(\tilde{Add}(z, \omega)\tilde{V}_{i+1}(\omega) +
-\tilde{Pow5}(z, \omega)\tilde{V}_{i+1}(\omega)  +\tilde{Sqr}(z, \omega)\tilde{V}_{i+1}(\omega)\right)
+\tilde{V}\_{i}(z) = \sum\_{\omega\in \\{0,1\\}^{n}} \left(\tilde{Add}(z, \omega)\tilde{V}\_{i+1}(\omega) +
+\tilde{Pow5}(z, \omega)\tilde{V}\_{i+1}(\omega)  + \tilde{Sqr}(z, \omega)\tilde{V}\_{i+1}(\omega)\right)
 $$
 
-This gate's completeness is notable, as it enables the derivation of multiplication gates. For instance, to calculate $a \times b$, one can compute $((a+b)^2 - a^2 - b^2) \times 2^{-1}$. The multiplication by the inverse of 2, being a constant multiplication, incurs no additional cost. Consequently, the product of two variables necessitates two layers, with each layer's computational expense halved compared to the Libra framework. This approach maintains the same cost efficiency as linear GKR for general circuits while offering enhanced efficiency for circuits like Poseidon that demand intensive bit operations.
+This gate's completeness is notable, as it enables the derivation of multiplication gates. For instance, to calculate $a \times b$, one can compute $((a+b)^2 - a^2 - b^2) \times 2^{-1}$. The multiplication by the inverse of 2, being a constant multiplication, incurs no additional cost. Consequently, the product of two variables necessitates two layers, with each layer's computational expense halved compared to the Libra framework. This approach maintains the same cost efficiency as linear GKR for general circuits while offering enhanced efficiency for circuits like Poseidon.
 
 ## Implementation and open source
 
