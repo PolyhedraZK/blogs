@@ -45,27 +45,27 @@ We illustrate the process using the Poseidon hash over M31. The hash function fo
 In the standard GKR prover framework, the computation for two consecutive layers involves Add and Mul gates, defined as:
 
 $$
-\tilde{V}_{i}(z) = \sum_{(\omega_1, \omega_2)\in \{0,1\}^{2n}} \left(
-\tilde{Add}(z, \omega_1, \omega_2)(\tilde{V}_{i+1}(\omega_1) + \tilde{V}_{i+1}(\omega_2)) + \tilde{Mul}(z, \omega_1, \omega_2)\tilde{V}_{i+1}(\omega_1) \tilde{V}_{i+1}(\omega_2) \right)
+\tilde{V}\_{i}(z) = \sum_{(\omega_1, \omega_2)\in \\{0,1\\}^{2n}} \left(
+\tilde{Add}(z, \omega\_1, \omega\_2)(\tilde{V}\_{i+1}(\omega_1) + \tilde{V}\_{i+1}(\omega\_2)) + \tilde{Mul}(z, \omega\_1, \omega\_2)\tilde{V}_{i+1}(\omega\_1) \tilde{V}\_{i+1}(\omega\_2) \right)
 $$
 
-This operation spans over $\{0,1\}^{2n}$, leading to a quadratic computational cost of $O(2^{2n})$ for a prover with input size $2^n$. However, in our linear GKR construction, as detailed in [Libra](https://eprint.iacr.org/2019/317.pdf), we demonstrate a method to reduce this cost to linear. This is achieved by decomposing the gate function into two phases, each governed by a sumcheck protocol over $n$ variables.
+This operation spans over $\\{0,1\\}^{2n}$, leading to a quadratic computational cost of $O(2^{2n})$ for a prover with circuit size $2^n$. However, in our linear GKR construction, as detailed in [Libra](https://eprint.iacr.org/2019/317.pdf), we demonstrate a method to reduce this cost to linear. This is achieved by decomposing the gate function into two phases, each governed by a sumcheck protocol over $n$ variables.
 
 
-It's important to note that the round keys and the MDS matrix are constant inputs to the circuit. The additions and multiplications by constants are nearly cost-free in a layered circuit. The primary computational bottleneck is the S-box operation, which requires 3 consecutive layers. Consequently, the circuit for each Poseidon iteration comprises $(4 + 14 + 4) \times 3 + 2 = 68$ layers, where additional 2 layers comes from the input and output layers. Under the vanilla linear GKR protocol, this equates to $68 \times 2 = 136$ sumchecks, as each layer necessitates $2$ sumchecks.
+It's important to note that the round keys and the MDS matrix are constant inputs to the circuit. The additions and multiplications by constants are nearly cost-free in a layered circuit. The primary computational bottleneck is the S-box operation, which requires 3 consecutive layers. Consequently, the circuit for each Poseidon iteration comprises $(4 + 14 + 4) \times 3 + 2 = 68$ layers, where additional 2 layers come from the input and output layers. Under the vanilla linear GKR protocol, this equates to $68 \times 2 = 136$ sumchecks, as each layer necessitates $2$ sumchecks.
 
 For the Poseidon hash circuit, which is the focus of our discussion, the requirement simplifies as it does not necessitate Add or Mul gates but solely a power 5 gate. This simplification is expressed as:
 
 $$
-\tilde{V}_{i}(z) = \sum_{\omega\in \{0,1\}^{n}} \left(
-\tilde{Pow5}(z, \omega)\tilde{V}_{i+1}(\omega) \right)
+\tilde{V}\_{i}(z) = \sum\_{\omega\in \{0,1\}^{n}} \left(
+\tilde{Pow5}(z, \omega)\tilde{V}\_{i+1}(\omega) \right)
 $$
 
 This adjustment yields significant optimizations:
 - Each partial or full round of the Poseidon hash requires only a single GKR layer.
 - Each GKR layer mandates merely one sumcheck protocol over $n$ variables.
 
-Consequently, this approach drastically reduces the number of required sumcheck protocols from 136 to 22, albeit at the cost of employing a marginally more complex gate function. This optimization not only enhances computational efficiency but also streamlines the prover's operation for the Poseidon hash function within the GKR framework.
+Consequently, this approach drastically reduces the number of required sumcheck protocols from 136 to 24, albeit at the cost of employing a marginally more complex gate function. This optimization not only enhances computational efficiency but also streamlines the prover's operation for the Poseidon hash function within the GKR framework.
 
 
 ## Implementation
