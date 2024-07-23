@@ -17,15 +17,15 @@ Embracing this methodology, we transitioned to our Expander proof system, a comp
 
 | CPU           | Threads | STWO (kH/s) | Expander (kH/s) | Improvement (%) |
 |---------------|---------|-------------|-----------------|-----------------|
-|MBP M3 Max     | 1       |             |                 |                 |
-|MBP M3 Max     | 16      | 620         |                 |                 |
-|AMD 7950x3D    | 1       |             |                 |                 |
-|AMD 7950x3D    | 16      |             |                 |                 |
+| MBP M3 Max    | 1       |             |                 |                 |
+| MBP M3 Max    | 16      | 620         |                 |                 |
+| AMD 7950x3D   | 1       |             |                 |                 |
+| AMD 7950x3D   | 16      |             |                 |                 |
 
 # Our Technique
 We presume a certain level of familiarity with the GKR proof system. At its core, GKR validates what is known as a layered circuit, where each layer's cells are computed from the preceding layer's cells. The integrity of such computations is ensured through a sumcheck protocol. For an in-depth exploration of our GKR prover, refer to [GKR By Hand](https://github.com/PolyhedraZK/blogs/blob/gkr-poseidon/blogs/gkr-by-hand.md).
 
-## Vanilla Construction for Poseidon Hash
+## Poseidon Hash Explained
 
 We illustrate the process using the Poseidon hash over M31. The hash function follows these steps:
 - **Initial State:** Start with 16 M31 field elements derived from the (padded) input. 
@@ -41,7 +41,9 @@ We illustrate the process using the Poseidon hash over M31. The hash function fo
     - Repeat the steps in the full rounds section.
 - **Output:** The first 8 elements of the state are the output of the hash function.
 
-## Tailored linear GKR prover for Poseidon
+GKR proves to be highly efficient for validating Poseidon hashes. It operates in linear time relative to the circuit size, $O(N)$, outperforming mainstream provers like Plonk and Groth16, which run in at least $O(N\log N)$. This efficiency is particularly beneficial for functions like Poseidon, characterized by small input/output sizes but requiring substantial intermediate computations. Unlike Plonk and Groth16, where the prover must commit to all intermediate witnesses, GKR necessitates commitments only for the inputs and outputs, leveraging sumcheck protocols to manage intermediate data. For applications where input/output privacy isn't a concern, such as GKRed Poseidon for Merkle Patricia Trees (MPT), commitments can be bypassed entirely, allowing direct transmission of inputs and outputs to the verifier.
+
+## Linear GKR prover for Poseidon
 In the standard GKR prover framework, the computation for two consecutive layers involves Add and Mul gates, defined as:
 
 $$
@@ -54,21 +56,35 @@ This operation spans over $\\{0,1\\}^{2n}$, leading to a quadratic computational
 
 It's important to note that the round keys and the MDS matrix are constant inputs to the circuit. The additions and multiplications by constants are nearly cost-free in a layered circuit. The primary computational bottleneck is the S-box operation, which requires 3 consecutive layers. Consequently, the circuit for each Poseidon iteration comprises $(4 + 14 + 4) \times 3 + 2 = 68$ layers, where additional 2 layers come from the input and output layers. Under the vanilla linear GKR protocol, this equates to $68 \times 2 = 136$ sumchecks, as each layer necessitates $2$ sumchecks.
 
+## New result: customized GKR for Poseidon
+
 For the Poseidon hash circuit, which is the focus of our discussion, the requirement simplifies as it does not necessitate Add or Mul gates but solely a power 5 gate. This simplification is expressed as:
 
 $$
 \tilde{V}\_{i}(z) = \sum\_{\omega\in \{0,1\}^{n}} \left(
+\tilde{Add}(z, \omega)\tilde{V}\_{i+1}(\omega) +
 \tilde{Pow5}(z, \omega)\tilde{V}\_{i+1}(\omega) \right)
 $$
 
 This adjustment yields significant optimizations:
 - Each partial or full round of the Poseidon hash requires only a single GKR layer.
 - Each GKR layer mandates merely one sumcheck protocol over $n$ variables.
+- We have eliminated the need for claim aggregation in GKR, as we now utilize only one polynomial in each sumcheck.
 
 Consequently, this approach drastically reduces the number of required sumcheck protocols from 136 to 24, albeit at the cost of employing a marginally more complex gate function. This optimization not only enhances computational efficiency but also streamlines the prover's operation for the Poseidon hash function within the GKR framework.
 
+## Customized GKR beyond Poseidon
 
-## Implementation
+Our customized GKR framework extends its utility beyond the Poseidon hash function, incorporating a square gate at minimal cost. The equation below illustrates this capability:
+
+$$
+\tilde{V}_{i}(z) = \sum_{\omega\in \{0,1\}^{n}} \left(\tilde{Add}(z, \omega)\tilde{V}_{i+1}(\omega) +
+\tilde{Pow5}(z, \omega)\tilde{V}_{i+1}(\omega)  +\tilde{Sqr}(z, \omega)\tilde{V}_{i+1}(\omega)\right)
+$$
+
+This gate's completeness is notable, as it enables the derivation of multiplication gates. For instance, to calculate $a \times b$, one can compute $((a+b)^2 - a^2 - b^2) \times 2^{-1}$. The multiplication by the inverse of 2, being a constant multiplication, incurs no additional cost. Consequently, the product of two variables necessitates two layers, with each layer's computational expense halved compared to the Libra framework. This approach maintains the same cost efficiency as linear GKR for general circuits while offering enhanced efficiency for circuits like Poseidon that demand intensive bit operations.
+
+## Implementation and open source
 
 We implement the discussed optimization using our proving stack, which consists of a GKR prover named [Expander](https://github.com/PolyhedraZK/Expander-rs), and a compiler named [Expander Compiler Collection](https://github.com/PolyhedraZK/ExpanderCompilerCollection). This compiler is designed to convert Gnark and Circom's R1CS circuits into layered circuits, facilitating efficient GKR proof generation. Our implementation is fully open-sourced, promoting transparency and community collaboration.
 
