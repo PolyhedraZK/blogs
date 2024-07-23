@@ -23,8 +23,15 @@ Embracing this methodology, we transitioned to our Expander proof system, a comp
 | AMD 7950x3D   | 16      |             |                 |                 |
 
 # Our Technique
-We presume a certain level of familiarity with the GKR proof system. For an in-depth exploration of our GKR prover, refer to our [GKR By Hand](https://github.com/PolyhedraZK/blogs/blob/gkr-poseidon/blogs/gkr-by-hand.md) tutorial.
+This document assumes readers have a foundational understanding of the GKR (Goldwasser-Kalai-Rothblum) proof system. For those seeking a detailed study of our implementation, the "GKR By Hand" tutorial offers an extensive overview and can be found [here](https://github.com/PolyhedraZK/blogs/blob/gkr-poseidon/blogs/gkr-by-hand.md). Additionally, for hands-on experience with our prover, including practical examples, please visit [Expander-rs](https://github.com/PolyhedraZK/Expander-rs) and [Expander Compiler Collection examples](https://github.com/PolyhedraZK/ExpanderCompilerCollection/tree/master/examples).
+
 At its core, GKR validates what is known as a layered circuit, where each layer's cells are computed from the preceding layer's cells. The integrity of such computations is ensured through a Sumcheck protocol. 
+
+GKR proves to be highly efficient for validating Poseidon hashes. It operates in linear time relative to the circuit size, $O(N)$, outperforming mainstream provers like Plonk and Groth16, which run in at least $O(N\log N)$. This efficiency is particularly beneficial for functions like Poseidon, characterized by small input/output sizes but requiring substantial intermediate computations. Unlike Plonk and Groth16, where the prover must commit to all intermediate witnesses, GKR necessitates commitments only for the inputs and outputs, leveraging Sumcheck protocols to manage intermediate data. For applications where input/output privacy isn't a concern, such as GKRed Poseidon for Merkle Patricia Trees (MPT), commitments can be bypassed entirely, allowing direct transmission of inputs and outputs to the verifier.
+
+The cost model for the GKR proving system is notably distinct from those used in Plonk and Groth16. While the latter two systems primarily assess computational costs based on the number of witnesses, GKR adopts a different approach due to its unique handling of intermediate witnesses as stated above. In GKR, there's no need for commitments to these intermediate witnesses, shifting the focus towards the total number of Sumcheck protocols executed. This change emphasizes the importance of Sumcheck protocols in evaluating GKR's computational efficiency, marking a significant departure from the cost assessment strategies of Plonk and Groth16.
+
+The current estimation provided is approximate and may not capture the full complexity of the system. For a more precise analysis, additional circuit parameters are necessary. A comprehensive breakdown of the GKR prover's cost model can be found in the [Expander Compiler Collection repository](https://github.com/PolyhedraZK/ExpanderCompilerCollection/blob/master/utils/costs.go), offering detailed insights into the factors influencing computational costs.
 
 ## Poseidon Hash Explained
 
@@ -42,9 +49,6 @@ We illustrate the process using the Poseidon hash over M31. The hash function fo
     - Repeat the steps in the full rounds section.
 - **Output:** The first 8 elements of the state are the output of the hash function.
 
-GKR proves to be highly efficient for validating Poseidon hashes. It operates in linear time relative to the circuit size, $O(N)$, outperforming mainstream provers like Plonk and Groth16, which run in at least $O(N\log N)$. This efficiency is particularly beneficial for functions like Poseidon, characterized by small input/output sizes but requiring substantial intermediate computations. Unlike Plonk and Groth16, where the prover must commit to all intermediate witnesses, GKR necessitates commitments only for the inputs and outputs, leveraging Sumcheck protocols to manage intermediate data. For applications where input/output privacy isn't a concern, such as GKRed Poseidon for Merkle Patricia Trees (MPT), commitments can be bypassed entirely, allowing direct transmission of inputs and outputs to the verifier.
-
-The cost model for the GKR proving system is notably distinct from those used in Plonk and Groth16. While the latter two systems primarily assess computational costs based on the number of witnesses, GKR adopts a different approach due to its unique handling of intermediate witnesses as stated above. In GKR, there's no need for commitments to these intermediate witnesses, shifting the focus towards the total number of Sumcheck protocols executed. This change emphasizes the importance of Sumcheck protocols in evaluating GKR's computational efficiency, marking a significant departure from the cost assessment strategies of Plonk and Groth16.
 
 ## Linear GKR prover for Poseidon
 In the standard GKR prover framework, the computation for two consecutive layers involves Add and Mul gates, defined as:
