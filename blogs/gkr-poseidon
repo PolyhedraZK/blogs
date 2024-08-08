@@ -1,6 +1,6 @@
  $\texttt{GKR}^2$, and new speed record for Poseidon circuit
 ------
-Polyhedra is excited to unveil the $\texttt{GKR}^2$ (pronounced as _G-K-R-square_), an enhanced Goldwasser-Kalai-Rothblum (GKR) protocol specifically optimized for exponentiation gates. This specialized prover is designed for the efficient verification of the Poseidon hash function, paving the way for numerous innovative applications.  $\texttt{GKR}^2$ has been integrated into our [Expander proving system](https://github.com/PolyhedraZK/Expander-rs), enabling the validation of approximately ~1 million~ Poseidon hashes in just 1 second, thereby ~doubling~ the efficiency compared to the previous best in the field.
+Polyhedra is excited to unveil the $\texttt{GKR}^2$ (pronounced as _G-K-R-square_), an enhanced Goldwasser-Kalai-Rothblum (GKR) protocol specifically optimized for exponentiation gates. This specialized prover is designed for the efficient verification of the Poseidon hash function, paving the way for numerous innovative applications.  $\texttt{GKR}^2$ has been integrated into our [Expander proving system](https://github.com/PolyhedraZK/Expander-rs), enabling the validation of approximately 3 million Poseidon hashes in just 1 second, thereby almost doubling the efficiency compared to the previous best in the field.
 
 ## Applications
 
@@ -26,10 +26,10 @@ Embracing this methodology, we transitioned to our Expander proof system, a comp
 
 | CPU           | Threads | STWO (kH/s) | Expander (kH/s) | Improvement (%) |
 |---------------|---------|-------------|-----------------|-----------------|
-| MBP M3 Max    | 1       |             |                 |                 |
-| MBP M3 Max    | 16      |             |                 |                 |
-| AMD 7950x3D   | 1       |             |                 |                 |
-| AMD 7950x3D   | 16      |             |                 |                 |
+| MBP M3 Max    | 1       |     114     |       132       |       15        |
+| MBP M3 Max    | 16      |    1188     |     1,575       |       33        |
+| AMD 7950x3D   | 1       |     181     |       212       |       17        |
+| AMD 7950x3D   | 16      |    1801     |     3,060       |       70        |
 
 # Our Technique
 This document assumes readers have a foundational understanding of the Goldwasser-Kalai-Rothblum (GKR) proof system. For those seeking a detailed study of our implementation, the "GKR By Hand" tutorial offers an extensive overview and can be found [here](https://github.com/PolyhedraZK/blogs/blob/gkr-poseidon/blogs/gkr-by-hand.md). Additionally, for hands-on experience with our prover, including practical examples, please visit [Expander-rs](https://github.com/PolyhedraZK/Expander-rs) and [Expander Compiler Collection examples](https://github.com/PolyhedraZK/ExpanderCompilerCollection/tree/master/examples).
