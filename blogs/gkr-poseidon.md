@@ -1,4 +1,4 @@
- $\texttt{GKR}^2$, and new speed record for Poseidon circuit
+$\texttt{GKR}^2$, and new speed record for Poseidon circuit
 ------
 Polyhedra is excited to unveil the $\texttt{GKR}^2$ (pronounced as _G-K-R-square_), an enhanced Goldwasser-Kalai-Rothblum (GKR) protocol specifically optimized for exponentiation gates. This specialized prover is designed for the efficient verification of the Poseidon hash function, paving the way for numerous innovative applications.  $\texttt{GKR}^2$ has been integrated into our [Expander proving system](https://github.com/PolyhedraZK/Expander-rs), enabling the validation of approximately 3 million Poseidon hashes in just 1 second, thereby almost doubling the efficiency compared to the previous best in the field.
 
@@ -22,7 +22,7 @@ Proof recursion unlocks a plethora of applications, including [aggregate signatu
 
 In [a recent announcement](https://starkware.co/blog/starkware-new-proving-record/), Starkware announced that their STWO system achieved a remarkable 600k hashes per second for the Poseidon hash over M31, using a MacBook Pro M3 Max laptop.
 
-Embracing this methodology, we transitioned to our Expander proof system, a comprehensive proving stack for the GKR proof system, compatible with Gnark and Circom frontend. Utilizing the same hash function, we successfully demonstrated the capability to prove ~1 million~ Poseidon hashes on the same hardware platform.
+Embracing this methodology, we transitioned to our Expander proof system, a comprehensive proving stack for the GKR proof system, compatible with Gnark and Circom frontend. Utilizing the same hash function, we successfully demonstrated the capability to prove **3 million** Poseidon hashes on the same hardware platform.
 
 | CPU           | Threads | STWO (kH/s) | Expander (kH/s) | Improvement (%) |
 |---------------|---------|-------------|-----------------|-----------------|
