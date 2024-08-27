@@ -1,3 +1,6 @@
 # IDEA
 .idea
 .vscode
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
