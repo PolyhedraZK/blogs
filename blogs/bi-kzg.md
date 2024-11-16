@@ -15,9 +15,10 @@ The primary goal of bivariate KZG (Bi-KZG) is to elevate the capabilities of dis
 
 Our focus is on the GKR-based approach. In the original Libra paper, the GKR + KZG solution requires $O(\log{n})$ pairings for the verifier, where $n$ is the input layer size. This requirement stems from the fact that GKR is based on Multi-Linear Extension (MLE), where a polynomial has $O(\log{n})$ variables. In Libra, we used a $O(\log{n})$ variate KZG commitment to commit the MLE, which incurs $O(\log{n})$ pairings for the verifier. Since pairings are extremely expensive for on-chain pre-compilation, minimizing on-chain costs is crucial.
 
-In our solution, we modified the MLE in the input layer to a Bivariate Extension. The Bivariate Extension of an array $V = \[v _0, v _1, \ldots, v _{n-1}\]$ is denoted by the polynomial $ \tilde{V} (x, y) $, and the evaluation of the polynomial is defined as follows:
+In our solution, we modified the MLE in the input layer to a Bivariate Extension. The Bivariate Extension of an array $V = \[v _0, v _1, \ldots, v _{n-1}\]$ is denoted by the polynomial 
+$\\tilde{V}(x, y)$ , and the evaluation of the polynomial is defined as follows:
 
-$$ \tilde{V}(x, y) := v_{x \cdot \frac{n}{M} + y}, \quad 0 \le x \le M, \quad 0 \le y \le \frac{n}{M} $$
+$$ \tilde{V}(x, y) := v_{x \cdot \frac{n}{M} + y}  \space \quad 0 \le x \le M, \quad 0 \le y \le \frac{n}{M} $$
 
 where $M$ is the number of machines in the distributed scenario.
 
